@@ -1,78 +1,35 @@
 <html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body {
-  margin: 0;
-  font-family: "Lato", sans-serif;
-}
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style> body {margin: 0;font-family: "Lato", sans-serif;}
 
-.sidebar {
-  margin: 0;
-  padding: 0;
-  width: 200px;
-  background-color: #f1f1f1;
-  position: fixed;
-  height: 100%;
-  overflow: auto;
-}
+              .sidebar {margin: 0; padding: 0; width: 200px; background-color: #f1f1f1; position: fixed; height: 100%;overflow: auto;}
 
-.sidebar a {
-  display: block;
-  color: black;
-  padding: 16px;
-  text-decoration: none;
-}
+              .sidebar a {display: block; color: black; padding: 16px; text-decoration: none;}
  
-.sidebar a.active {
-  background-color: rgb(61, 68, 61);
-  color: white;
-}
+              .sidebar a.active {background-color: rgb(61, 68, 61); color: white;}
 
-.sidebar a:hover:not(.active) {
-  background-color: rgb(61, 68, 61);
-  color: white;
-}
+              .sidebar a:hover:not(.active) {background-color: rgb(61, 68, 61); color: white;}
 
-div.content {
-  margin-left: 100px;
-  padding: 1px 16px;
-  height: 1000px;
-}
+              div.content {margin-left: 100px; padding: 1px 16px; height: 1000px;}
 
-@media screen and (max-width: 700px) {
-  .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-  }
-  .sidebar a {float: left;}
-  div.content {margin-left: 0;}
-}
+              @media screen and (max-width: 700px) {.sidebar {width: 100%; height: auto; position: relative;}
+              .sidebar a {float: left;}
+              div.content {margin-left: 0;}}
 
-@media screen and (max-width: 400px) {
-  .sidebar a {
-    text-align: center;
-    float: none;
-  }
-}
-</style>
-</head>
-<body>
-
-<div class="sidebar">
-  <a class="active" href="#home">Home</a>
-  <a href="#news">Projects</a>
-  <a href="#contact">Tasks</a>
-  <a href="#contact">Calender</a>
-  <a href="#contact">Board</a>
-  <a href="#about">About</a>
-</div>
-
-{% block body_content %}
-{% endblock body_content %}
-
-
-
-</body>
+              @media screen and (max-width: 400px) {.sidebar a {text-align: center; float: none; }}
+            </style>
+      </head>
+      <div class="sidebar">
+        <a class="active" href="{{ url_for('projects') }}">Home Page</a>
+        <a href="{{ url_for('projects') }}">Projects</a>
+        <a href="{{ url_for('tasks') }}">Tasks</a>
+        <a href="{{ url_for('calender') }}">Calender</a>
+        <a href="{{ url_for('board') }}">Board</a>
+        <a href="{{ url_for('about') }}">About</a>
+      </div>
+    <body>
+        {% block body_content %}
+        {% endblock %}
+    </body>
 </html>
