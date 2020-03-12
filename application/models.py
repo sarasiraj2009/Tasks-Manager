@@ -1,42 +1,37 @@
-from application import db, login_manager
-from flask_login import UserMixin
+from application import db
 from datetime import datetime
 
 
-class Posts(db.Model):
+class Projects(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False, unique=True)
-    content = db.Column(db.String(100), nullable=False, unique=True)
-    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    project_name = db.Column(db.String(100), nullable=False, unique=True)
+    owner = db.Column(db.String(50), nullable=False, unique=False)
+    due_date = db.Column(db.DateTime, nullable=False)
+    start_date = db.Column(db.DateTime, default=datetime.utcnow)
+    end_date = db.Column(db.DateTime)
+    status = db.Column(db.String(10))
 
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-
-    def __repr__(self):
-        return ''.join([
-            'User ID: ', self.user_id, '\r\n',
-            'Title: ', self.title, '\r\n', self.content
-        ])
+    #def __repr__(self):
+    #    return ''.join([
+    #        'Project ID: ', self.projectid, '\r\n',
+    #        'Title: ', self.title, '\r\n', self.content
+    #    ])
 
 
-class Users(db.Model, UserMixin):
+class Tasks(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(30), nullable=False)
-    last_name = db.Column(db.String(30), nullable=False)
-    email = db.Column(db.String(150), nullable=False, unique=True)
-    password = db.Column(db.String(250), nullable=False)
-    post = db.relationship('Posts', backref='author', lazy=True)
+    Tasks_name = db.Column(db.String(30), nullable=False)
+    Project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
+    user = db.Column(db.String(50), nullable=False, unique=False)
+    due_date = db.Column(db.DateTime, nullable=False)
+    start_date = db.Column(db.DateTime, default=datetime.utcnow)
+    end_date = db.Column(db.DateTime)
+    status = db.Column(db.String(10))
 
-    def __repr__(self):
-        return ''.join(['UserID: ', str(self.id), '\r\n',
-        'Email: ', self.email], '\r\n',
-        'Name: ', self.first_name, ' ', self.last_name
-        )
+   
+    post = db.relationship('Projects', backref='author', lazy=True)
 
-
-
-
-
-
-@login_manager.user_loader
-def load_user(id):
-    return Users.query.get(int(id))
+    #def __repr__(self):
+    #    return ''.join(['UserID: ', str(self.id), '\r\n',
+    #    'Email: ', self.email], '\r\n',
+    #    'Name: ', self.first_name, ' ', self.last_name

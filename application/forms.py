@@ -1,8 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from application.models import Users
-from flask_login import current_user
+from application.models import Projects, Tasks
 
 class PostForm(FlaskForm):
 
@@ -98,8 +97,4 @@ class UpdateAccountForm(FlaskForm):
     )
     submit = SubmitField('Update')
 
-    def validate_email(self, email):
-        if email.data != current_user.email:
-            user = Users.query.filter_by(email=email.data).first()
-            if user:
-                raise ValidationError('Email already in use')
+    
