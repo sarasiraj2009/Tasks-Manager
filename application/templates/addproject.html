@@ -1,12 +1,86 @@
+{% extends "layout.html" %}
 {% block body_content %}
-<p>this is a home page</p>
-{% for post in posts %}
-	<div>
-		<h3>{{ post.title }}</h3>
-		<p><b> - First name:</b>{{ post.author.first_name }}</p>
-		<p><b> - Last name:</b>{{ post.author.last_name }}</p>
-		<p> -- {{ post.content }}</p>
-	</div>
-{% endfor %}
+	<p>Add New Project</p>
+
+	<div class='form'>
+        <form method='POST' action=''>
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.project_name.label }}
+                {{ form.project_name }}
+                {% if form.project_name.errors %}
+                <div class="error">
+                    {% for error in form.project_name.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <br>
+            <div class="form-group">
+                {{ form.owner.label }}
+                {{ form.owner }}
+                {% if form.owner.errors %}
+                <div class="error">
+                    {% for error in form.owner.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <div class='form_group'>
+                {{ form.due_date.label }}
+                {{ form.due_date }}
+                {% if form.due_date.errors %}
+                    <div class='error'>
+                        {% for error in form.due_date.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+            <div class='form_group'>
+                {{ form.start_date.label }}
+                {{ form.start_date }}
+                {% if form.start_date.errors %}
+                    <div class='error'>
+                        {% for error in form.start_date.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+            <div class='form_group'>
+                {{ form.end_date.label }}
+                {{ form.end_date }}
+                {% if form.end_date.errors %}
+                    <div class='error'>
+                        {% for error in form.end_date.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+			</div>
+			<br>
+            <div class='form_group'>
+                {{ form.status.label }}
+                {{ form.status }}
+                {% if form.status.errors %}
+                    <div class='error'>
+                        {% for error in form.status.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+            <div class='form_group'>
+                {{ form.submit }}
+            </div>
+        </form>
+    </div>
+
 	
 {% endblock %}
