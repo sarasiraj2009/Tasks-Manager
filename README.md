@@ -11,8 +11,6 @@
    * [Delivered ERD plan](#Delivered_ERD_plan)
 	
 [Testing](#testing)
-   * [Report](#report)
-
      
 [Deployment](#depl)
    * [Technologies Used](#tech)
