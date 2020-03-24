@@ -31,21 +31,17 @@ To create a CRUD application with utilisation of supporting tools and technologi
 
 <a name="Project_planning"></a>
 ### Project Planning
-![MTA](/Documentation/Trello.jpg)
+![Trello](/Documentation/Trello.jpg)
 
 
 <a name="Architecture"></a>
 ## Architecture
 ### Entity Relation Digrams
-#### Initial ERD plan
+
 <a name="Initial_ERD_plan"></a>
+#### Initial ERD plan
 The initial plan contained more tables to make the Projects Manager Web Application  more effective by having Users can login to manage their Projects and tasks. And having a joint table will ease the tracking process of tasks.
 ![Initial ERD](/Documentation/InitialERD.png)
-
-#### Initial ERD plan
-<a name="Initial_ERD_plan"></a>
-The initial plan contained more tables to make the Projects Manager Web Application  more effective by having Users can login to manage their Projects and tasks. And having a joint table will ease the tracking process of tasks.
-![InitialERD](/Documentation/InitialERD.png)
 
 <a name="Delivered_ERD_plan"></a>
 #### Delivered ERD plan
@@ -53,17 +49,10 @@ Due to time constraints and working from distance, the Projects Manager Web Appl
 
 ![DeliveredERD](/Documentation/DeliveredERD.png)
 
-
-
-
 <a name="testing"></a>
 ## Testing
 
 Testing has been done using pytest. The coverage report for the backend is 41%. Using pytest enabled me to test the application functionality, it needed a check to test the flow between the pages.
-
-Deployment
-Using Jenkins at the testing and deploymenting process for the Projects Manager Web Application made the process automated and with webhook to GitHub it made push and pull from the represoity is easy and triggered with every update on the code.
-
 
 <a name="depl"></a>
 ## Deployment
@@ -90,6 +79,3 @@ Using Jenkins at the testing and deploymenting process for the Projects Manager 
 ## Authors
 
 Sara Mohamed
-
-
-
