@@ -112,20 +112,6 @@ class TestUpdate(TestBase):
         self.assertNotEqual(task.user, "Admin")
         self.assertEqual(task.status, "Done")
 
-class TestDelete(TestBase):
-
-    def test_delete_project(self):
-        project = Projects.query.filter_by(id=2).first()
-
-        db.session.delete(project)              
-        db.session.commit()
-
-    def test_delete_task(self):
-        task = Tasks.query.filter_by(id=2).first()
-
-        db.session.delete(task)              
-        db.session.commit()
-       
 class TestRoutes(TestBase):
 
     def test_home_page(self):
@@ -142,28 +128,28 @@ class TestRoutes(TestBase):
 
     def test_addproject(self):
         target_url = url_for('addproject')
-        redirect = url_for('projects', next=target_url)
+        redirect = url_for('addproject', next=target_url)
         response = self.client.get(redirect)
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
     
     def test_editproject(self):
-        target_url = url_for('editproject')
-        redirect = url_for('projects', next=target_url)
+        target_url = url_for('projects')
+        redirect = url_for('editproject', next=target_url)
         response = self.client.get(redirect)
 
         self.assertEqual(response.status_code, 200)
     
     def test_addtask(self):
-        target_url = url_for('addtask')
-        redirect = url_for('projects', next=target_url)
+        target_url = url_for('projects')
+        redirect = url_for('addtask', next=target_url)
         response = self.client.get(redirect)
 
         self.assertEqual(response.status_code, 302)
     
     def test_edittask(self):
-        target_url = url_for('edittask')
-        redirect = url_for('tasks', next=target_url)
+        target_url = url_for('tasks')
+        redirect = url_for('edittask', next=target_url)
         response = self.client.get(redirect)
 
         self.assertEqual(response.status_code, 302)
