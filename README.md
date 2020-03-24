@@ -14,6 +14,8 @@
      
 [Deployment](#depl)
    * [Technologies Used](#tech)
+   
+[Risk Assessment](#Risk_Assessment)
      
 [Authors](#auth)
 
@@ -72,6 +74,9 @@ Using Jenkins at the testing and deploymenting process for the Projects Manager 
 * Project Tracking: Trello
 * Live Environment: GCP
  
+ <a name="Risk_Assessment"></a>
+## Risk Assessment
+![RiskAssessment](/Documentation/RiskAssessment.png)
 
 <a name="auth"></a>
 ## Authors
