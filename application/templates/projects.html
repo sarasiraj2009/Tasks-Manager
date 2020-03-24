@@ -1,8 +1,9 @@
 {% extends "layout.html" %}
 {% block body_content %}
    <p>Projects</p>
-   <a href="{{ url_for('addproject') }}">Add Project</a>
-	<table>
+   <a href="{{ url_for('addproject') }}">Add New Project</a><br>
+   <br>
+    <table border="1">
        <thead>
            <tr>
                <th>Project Name</th>
@@ -13,6 +14,7 @@
 			   <th>Status</th>
 			   <th>Edit</th>
                <th>Delete</th>
+               <th>New Task</th>
            </tr>
        </thead>
        {% for project in projects %}
@@ -25,7 +27,9 @@
                    <td>{{ project.end_date }}</td>
 				   <td>{{ project.status }}</td>
                    <td><a href="editproject/{{ project.id }}">Edit</a></td>
-				   <td><a href="deleteproject/{{ project.id }}">Delete</a></td>
+                   <td><a href="deleteproject/{{ project.id }}">Delete</a></td>
+                   <td><a href="addtask/{{ project.id }}">Add New Task</a>
+                   </td>
                </tr>  
            </tbody>
        {% endfor %}

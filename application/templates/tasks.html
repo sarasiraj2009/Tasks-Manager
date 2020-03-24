@@ -1,8 +1,7 @@
 {% extends "layout.html" %}
 {% block body_content %}
 	<p>Tasks</p>
-	<a href="{{ url_for('addtask') }}">Add Task</a>
-	<table>
+	<table border="1">
 		<thead>
 			<tr>
 				<th>Task Name</th>
@@ -12,6 +11,8 @@
 				<th>Start Date</th>
 				<th>End Date</th>
 				<th>Status</th>
+				<th>Edit</th>
+               	<th>Delete</th>
 			</tr>
 		</thead>
 		{% for task in tasks %}
@@ -24,6 +25,8 @@
 					<td>{{ task.start_date }}</td>
 					<td>{{ task.end_date }}</td>
 					<td>{{ task.status }}</td>
+					<td><a href="edittask/{{ task.id }}">Edit</a></td>
+				   <td><a href="deletetask/{{ task.id }}">Delete</a></td>
 				</tr>	
 			</tbody>
 		{% endfor %}

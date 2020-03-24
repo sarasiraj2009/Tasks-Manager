@@ -1,5 +1,5 @@
 from application import app, db
-from flask import render_template, redirect, url_for, request
+from flask import render_template, redirect, url_for, request, flash
 from application.forms import ProjectForm, EditProjectForm, TaskForm, EditTaskForm
 from application.models import Projects, Tasks
 
@@ -24,7 +24,9 @@ def projects():
 @app.route('/tasks')
 def tasks():
 	taskData = Tasks.query.all()
-	return render_template('tasks.html', title='Tasks', tasks=taskData)
+	projectData = Projects.query.all()
+
+	return render_template('tasks.html', title='Tasks', tasks=taskData, projects=projectData )
 
 ###################################################################################
 @app.route('/calender')
@@ -39,6 +41,8 @@ def board():
 ###################################################################################
 @app.route('/addproject', methods=['GET', 'POST'])
 def addproject():
+	#status_types = ['Under Process','Done','For Review','For Approval','On Hold']
+
 	form = ProjectForm()
 	if form.validate_on_submit():
 		projectData = Projects(
@@ -89,19 +93,26 @@ def deleteproject(id):
 	tasks = Tasks.query.filter_by(project_id=id)
 	for task in tasks:
 		db.session.delete(task)
-	
+
 	db.session.delete(projectData)    
-	db.session.commit()
+	db.session.commit()   	
+
 	return redirect(url_for('projects'))
+
 ###################################################################################
-@app.route('/addtask', methods=['GET', 'POST'])
-def addtask():
-	form = TaskForm()
+@app.route('/addtask/<int:id>', methods=['GET', 'POST'])
+def addtask(id):
+	
+	project=Projects.query.filter_by(id=id)
+	projectData = project.first()
+	form = TaskForm()				
+	form.project_id.data=projectData.project_name
+
 	if form.validate_on_submit():
 		taskData = Tasks(
 			task_name=form.task_name.data,
-			project_id=form.project_id.data,
 			user=form.user.data,
+			project_id=id,
 			due_date=form.due_date.data,
 			start_date=form.start_date.data,
 			end_date=form.end_date.data,
@@ -115,30 +126,38 @@ def addtask():
 	return render_template('addtask.html', title='Add Task', form=form)
    
 ###################################################################################
-@app.route('/edittask', methods=['GET', 'POST'])
-def edittask():
+@app.route('/edittask/<int:id>', methods=['GET', 'POST'])
+def edittask(id):
+	task=Tasks.query.filter_by(id=id)
+	taskData = task.first()
 	form = EditTaskForm()
 	if form.validate_on_submit():
-		current_user.first_name = form.first_name.data
-		current_user.last_name = form.last_name.data
-		current_user.email = form.email.data
+		taskData.task_name = form.task_name.data
+		taskData.project_id = form.project_id.data
+		taskData.user = form.user.data
+		taskData.due_date = form.due_date.data
+		taskData.start_date = form.start_date.data
+		taskData.end_date = form.end_date.data
+		taskData.status = form.status.data
+
 		db.session.commit()
-		return redirect(url_for('account'))
+		return redirect(url_for('tasks', id=id))
 	elif request.method == 'GET':
-		form.first_name.data = current_user.first_name
-		form.last_name.data = current_user.last_name
-		form.email.data = current_user.email
+		form.task_name.data = taskData.task_name
+		form.project_id.data = taskData.project_id
+		form.user.data = taskData.user
+		form.due_date.data = taskData.due_date
+		form.start_date.data = taskData.start_date
+		form.end_date.data = taskData.end_date
+		form.status.data = taskData.status
+
 	return render_template('edittask.html', title='Edit Task', form=form)
 ###################################################################################
-@app.route("/account/delete", methods=["GET", "POST"])
-def deletetask():
-        user = current_user.id
-        posts = Projects.query.filter_by(user_id=user)
-        for post in posts:
-                db.session.delete(post)
-        account = Projects.query.filter_by(id=user).first()
-      
-        db.session.delete(account)
-        db.session.commit()
-        return redirect(url_for('tasks'))
+@app.route("/deletetask/<int:id>", methods=["GET", "POST"])
+def deletetask(id):    
+	task=Tasks.query.filter_by(id=id)
+	taskData = task.first()
+	db.session.delete(taskData)    
+	db.session.commit()
+	return redirect(url_for('tasks'))
 ###################################################################################
